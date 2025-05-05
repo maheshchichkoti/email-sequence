@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Modern JS target
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Browser and latest JS libs
+    "allowJs": false, // Only TS/TSX files
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "esModuleInterop": true, // For compatibility with CommonJS modules
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "strict": true, // Enable all strict type-checking options
+    "forceConsistentCasingInFileNames": true, // File name casing consistency
+    "module": "ESNext", // Use ESNext modules (for Vite)
+    "moduleResolution": "Node", // Resolve modules like Node.js
+    "resolveJsonModule": true, // Allow importing JSON files
+    "isolatedModules": true, // Required for transpile-only mode (Vite)
+    "noEmit": true, // Do not emit output (Vite handles this)
+    "jsx": "react-jsx", // Use new JSX transform (React 17+)
+    "baseUrl": ".", // Base directory for non-relative imports
+    "paths": {
+      "@/*": ["src/*"] // Optional: alias '@' to 'src'
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

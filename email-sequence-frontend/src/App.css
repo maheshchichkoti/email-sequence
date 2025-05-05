@@ -1,0 +1,135 @@
+.App {
+  text-align: center;
+}
+
+h1 {
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+/* React Flow Elements */
+.react-flow__node {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.react-flow__node-leadSource {
+  background-color: var(--lead-source-bg);
+  border: 2px solid var(--lead-source-border);
+}
+
+.react-flow__node-waitDelay {
+  background-color: var(--wait-delay-bg);
+  border: 2px solid var(--wait-delay-border);
+}
+
+.react-flow__node-coldEmail {
+  background-color: var(--cold-email-bg);
+  border: 2px solid var(--cold-email-border);
+}
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--handle-color);
+}
+
+.react-flow__edge-path {
+  stroke: var(--edge-color);
+  stroke-width: 2;
+}
+
+.react-flow__controls {
+  box-shadow: 0 0 4px var(--shadow-color);
+}
+
+/* Node type buttons */
+.btn-lead-source {
+  background-color: var(--lead-source-border);
+  color: white;
+}
+
+.btn-wait-delay {
+  background-color: var(--wait-delay-border);
+  color: white;
+}
+
+.btn-cold-email {
+  background-color: var(--cold-email-border);
+  color: white;
+}
+
+/* Layout elements */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Flow editor specific */
+.flow-container {
+  height: 700px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--background-muted);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Auth form styles */
+.auth-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: var(--background-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Node styles */
+.node-content {
+  padding: 10px;
+}
+
+.node-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.node-field {
+  margin-bottom: 10px;
+}
