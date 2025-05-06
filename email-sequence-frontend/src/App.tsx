@@ -10,6 +10,7 @@ function App() {
   const [isSignup, setIsSignup] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
     // Check if token exists
@@ -45,139 +46,179 @@ function App() {
 
   if (!isLoggedIn) {
     return (
-      <div className="App">
-        <div
-          style={{
-            maxWidth: 400,
-            margin: "100px auto",
-            padding: 20,
-            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-            borderRadius: 8,
-            background: "white",
-          }}
-        >
-          <h1>Email Sequence Designer</h1>
-          <h2>{isSignup ? "Sign Up" : "Login"}</h2>
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-header">
+            <img
+              src="/logo.svg"
+              alt="Email Sequence Designer"
+              className="auth-logo"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
+              }}
+            />
+            <h1>Email Sequence Designer</h1>
+            <p className="auth-subtitle">
+              {isSignup
+                ? "Create an account to start designing email sequences"
+                : "Sign in to your account to continue"}
+            </p>
+          </div>
 
           {error && (
-            <div
-              style={{
-                padding: 10,
-                background: "#ffebee",
-                color: "#c62828",
-                borderRadius: 4,
-                marginBottom: 15,
-              }}
-            >
+            <div className="error-message">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
               {error}
             </div>
           )}
 
-          <form onSubmit={handleAuth}>
-            <div style={{ marginBottom: 15 }}>
-              <label style={{ display: "block", marginBottom: 5 }}>
-                Email:
-              </label>
+          <form onSubmit={handleAuth} className="auth-form">
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                style={{
-                  width: "100%",
-                  padding: "8px 12px",
-                  borderRadius: 4,
-                  border: "1px solid #ddd",
-                }}
+                placeholder="you@example.com"
+                className="form-input"
               />
             </div>
 
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ display: "block", marginBottom: 5 }}>
-                Password:
-              </label>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
               <input
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{
-                  width: "100%",
-                  padding: "8px 12px",
-                  borderRadius: 4,
-                  border: "1px solid #ddd",
-                }}
+                placeholder={
+                  isSignup ? "Create a secure password" : "Enter your password"
+                }
+                className="form-input"
+                minLength={6}
               />
+              {isSignup && (
+                <small className="password-hint">
+                  Password must be at least 6 characters
+                </small>
+              )}
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              style={{
-                width: "100%",
-                padding: "10px",
-                background: "#4caf50",
-                color: "white",
-                border: "none",
-                borderRadius: 4,
-                cursor: loading ? "not-allowed" : "pointer",
-                opacity: loading ? 0.7 : 1,
-              }}
+              className={`auth-button ${loading ? "loading" : ""}`}
             >
-              {loading ? "Processing..." : isSignup ? "Sign Up" : "Login"}
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  <span>Processing...</span>
+                </>
+              ) : isSignup ? (
+                "Create Account"
+              ) : (
+                "Sign In"
+              )}
             </button>
           </form>
 
-          <p style={{ marginTop: 15, textAlign: "center" }}>
-            {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
-            <button
-              onClick={() => setIsSignup(!isSignup)}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#2196f3",
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-            >
-              {isSignup ? "Login" : "Sign Up"}
-            </button>
-          </p>
+          <div className="auth-footer">
+            <p>
+              {isSignup ? "Already have an account?" : "Don't have an account?"}
+              <button
+                onClick={() => setIsSignup(!isSignup)}
+                className="text-button"
+              >
+                {isSignup ? "Sign In" : "Create Account"}
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="App">
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px 20px",
-          background: "#f5f5f5",
-          borderBottom: "1px solid #ddd",
-        }}
-      >
-        <h1>Email Sequence Designer</h1>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "8px 16px",
-            background: "#f44336",
-            color: "white",
-            border: "none",
-            borderRadius: 4,
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
+    <div className="app">
+      {showWelcome && (
+        <div className="welcome-toast">
+          <div className="toast-content">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Welcome to Email Sequence Designer!</span>
+          </div>
+        </div>
+      )}
+
+      <header className="app-header">
+        <div className="header-left">
+          <img
+            src="/logo.svg"
+            alt=""
+            className="header-logo"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = "none";
+            }}
+          />
+          <h1>Email Sequence Designer</h1>
+        </div>
+        <div className="header-right">
+          <button onClick={handleLogout} className="logout-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </button>
+        </div>
       </header>
-      <div style={{ padding: 20 }}>
+
+      <main className="app-content">
         <FlowEditor />
-      </div>
+      </main>
+
+      <footer className="app-footer">
+        <p>
+          © {new Date().getFullYear()} Email Sequence Designer. All rights
+          reserved.
+        </p>
+      </footer>
     </div>
   );
 }
